@@ -32,7 +32,8 @@ jobs:
             data/q7-1.txt data/q7-2.txt data/q7-3.txt \
             data/q8-1.txt data/q8-2.txt data/q8-3.txt \
             data/q9-1.txt data/q9-2.txt data/q9-3.txt \
-            | tr -d '\r\n[:space:]' > /tmp/questions.b64
+            | tr -cd 'A-Za-z0-9+/=' > /tmp/questions.b64
+          echo "Sanitized Base64 length: $(wc -c < /tmp/questions.b64)"
           base64 -d /tmp/questions.b64 | gzip -dc > questions.js
           node --check questions.js
           COUNT=$(grep -o '"id":"' questions.js | wc -l | tr -d ' ')
