@@ -23,14 +23,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Build question bank
+        shell: bash
+        run: |
+          cat \
+            data/qdata-1.txt data/qdata-2.txt data/qdata-3.txt data/qdata-4.txt data/qdata-5.txt data/qdata-6.txt \
+            data/q7-1.txt data/q7-2.txt data/q7-3.txt \
+            data/q8-1.txt data/q8-2.txt data/q8-3.txt \
+            data/q9-1.txt data/q9-2.txt data/q9-3.txt \
+            | tr -d '\r\n[:space:]' > /tmp/questions.b64
+          base64 -d /tmp/questions.b64 | gzip -dc > questions.js
+          node --check questions.js
+          COUNT=$(grep -o '"id":"' questions.js | wc -l | tr -d ' ')
+          echo "Question count: $COUNT"
+          test "$COUNT" = "210"
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
