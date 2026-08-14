@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#273b39">
+<meta name="description" content="古琴考级题库：随机练习、详细解析、错题本、拍照识题">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="古琴题库">
+<title>古琴考级题库</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-icon" src="./icon-192.png" alt="古琴题库">
+      <div><h1>古琴考级题库</h1><p>练习 · 详细解析 · 错题 · 拍照识题</p></div>
+    </div>
+    <button id="installTop" class="mini-install hidden">安装</button>
+  </header>
+  <main id="view" class="content"></main>
+</div>
+<nav class="bottom-nav" aria-label="主导航">
+  <button class="nav-btn active" data-view="home"><span>⌂</span><b>首页</b></button>
+  <button class="nav-btn" data-view="wrong"><span>▤</span><b>错题本</b></button>
+  <button class="nav-btn" data-view="ocr"><span>⌕</span><b>拍照识题</b></button>
+</nav>
+<div id="toast" class="toast"></div>
+<script src="./questions.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
