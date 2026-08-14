@@ -1,0 +1,17 @@
+/* v12: 更明确的雅致古风主题 */
+:root{--v12-gold:#9a7d45;--v12-ink:#24312f;--v12-paper:#fffaf1;--v12-jade:#486e63;}
+html,body{background-color:#f4eee2;background-image:radial-gradient(circle at 18% 12%,rgba(154,125,69,.045) 0 1px,transparent 1.6px),radial-gradient(circle at 78% 32%,rgba(72,110,99,.035) 0 1px,transparent 1.7px),linear-gradient(180deg,#faf6ee 0%,#f3ecdf 100%);background-size:22px 22px,29px 29px,100% 100%;}
+.topbar{background:rgba(252,249,242,.96)!important;border-bottom:1px solid rgba(154,125,69,.22)!important;box-shadow:0 5px 18px rgba(70,57,35,.035)!important;}
+.brand-icon{border:1px solid rgba(154,125,69,.20)!important;background:#fffaf2!important;border-radius:12px!important;}
+.brand h1,.page-head h2,.category-card .big,.section-title h3{font-family:"Songti SC","STSong","Noto Serif SC",serif!important;letter-spacing:.8px;}
+.category-card,.question-card,.bank-item,.wrong-item,.result-item,.ocr-card,.match-card,.score-card{background:linear-gradient(180deg,rgba(255,253,248,.98),rgba(252,248,239,.98))!important;border-color:rgba(154,125,69,.22)!important;box-shadow:0 10px 26px rgba(76,60,34,.055)!important;}
+.category-card:before,.bank-item:before,.wrong-item:before,.question-card:before{content:"";display:block;height:2px;width:40px;background:linear-gradient(90deg,var(--v12-gold),transparent);margin-bottom:10px;border-radius:2px;}
+.category-card:after{background:radial-gradient(circle,rgba(72,110,99,.10),rgba(72,110,99,.025) 64%,transparent 66%)!important;}
+.category-card .card-btn,.btn.primary{background:linear-gradient(90deg,#263833,#1f302d)!important;box-shadow:inset 0 0 0 1px rgba(190,167,114,.16);}
+.section-title h3{padding-left:10px;border-left:3px solid rgba(154,125,69,.70);}
+.tag{background:#f1eee5!important;color:#496158!important;border:1px solid rgba(154,125,69,.14);}
+.bank-answer,.match-answer{background:linear-gradient(180deg,#f0f4ef,#e9f0eb)!important;border-left:3px solid rgba(72,110,99,.50);}
+.explain-part.single{background:linear-gradient(180deg,#fbf6ed,#f4ecdf)!important;border:1px solid rgba(154,125,69,.14)!important;border-left:3px solid rgba(154,125,69,.62)!important;line-height:1.95!important;}
+.bottom-nav{background:rgba(255,251,244,.97)!important;border-top-color:rgba(154,125,69,.18)!important;}
+.nav-btn.active{background:linear-gradient(180deg,#eff3ed,#e8eee9)!important;box-shadow:inset 0 0 0 1px rgba(72,110,99,.07);}
+.wechat-tip{display:none!important;}
