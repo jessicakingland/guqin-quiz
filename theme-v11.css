@@ -1,0 +1,22 @@
+/* v11：轻古风主题，仅做视觉优化，不改变功能 */
+:root{--paper-warm:#fffdf7;--paper-soft:#f7f1e7;--ink-deep:#273431;--ink-green:#405f57;--warm-line:#ded3c2}
+html,body{background:linear-gradient(180deg,#f8f4eb 0%,#f4efe5 100%);color:#34342f}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(90deg,rgba(129,103,63,.018) 1px,transparent 1px),linear-gradient(rgba(129,103,63,.012) 1px,transparent 1px);background-size:44px 44px;opacity:.45}
+.topbar{background:rgba(250,247,240,.95);border-bottom:1px solid rgba(132,111,77,.16)}
+.topbar:after{content:"";position:absolute;left:16px;right:16px;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(134,50,43,.25),rgba(71,98,88,.18),transparent)}
+.brand h1,.page-head h2,.section-title h3,.category-card .big,.question-card h3,.score-card h2,.result-item h4,.wrong-item h4,.match-card h4,.bank-item h4{font-family:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","PingFang SC",serif;letter-spacing:.35px}
+.card,.category-card,.question-card,.score-card,.result-item,.wrong-item,.ocr-card,.match-card,.bank-item{background:linear-gradient(180deg,#fffdf8,#fdfaf3);border-color:rgba(132,111,77,.16);box-shadow:0 10px 28px rgba(62,53,39,.055)}
+.category-card{background:linear-gradient(180deg,#fffdf8,#faf6ed)}
+.category-card:after{background:radial-gradient(circle,rgba(75,110,99,.09),rgba(239,243,239,.18) 65%,transparent 66%)}
+.category-card .count-num{color:#496f64}
+.category-card .card-btn,.btn.primary,.seg button.active{background:linear-gradient(90deg,#263a35,#1f302d);color:#fff}
+.tag{background:#eef2ec;color:#425e55;border:1px solid rgba(73,103,91,.08)}
+.bank-answer,.match-answer{background:#f0f3ed}
+.explain-details{border-top-color:#d9cfbf}
+.explain-details summary{color:#405f57;font-family:"Songti SC","STSong","Noto Serif SC","PingFang SC",serif;letter-spacing:.2px}
+.explain-part.single{padding:14px 15px;border-radius:13px;background:linear-gradient(180deg,#f9f5ed,#f4eee3);border:1px solid rgba(151,126,82,.10);font-size:13px;line-height:1.9;color:#49463f}
+.bottom-nav{background:rgba(255,252,246,.96);border-top-color:rgba(132,111,77,.16)}
+.nav-btn.active{background:#edf1eb;color:#273431}
+.search-input,textarea,.option{background:#fffdfa;border-color:#ddd4c6}
+.option.selected{background:#edf3ee;border-color:#78968b}
+@media(max-width:520px){.explain-part.single{font-size:13px;line-height:1.85}}
