@@ -1,0 +1,15 @@
+{
+  "name": "古琴考级题库",
+  "short_name": "古琴题库",
+  "description": "古琴考级题库：随机练习、详细解析、错题本、拍照识题",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4eee3",
+  "theme_color": "#273b39",
+  "icons": [
+    {"src":"./icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
