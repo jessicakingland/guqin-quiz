@@ -1,14 +1,17 @@
 {
   "name": "古琴考级题库",
   "short_name": "古琴题库",
-  "description": "古琴考级题库：随机练习、详细解析、错题本、拍照识题",
-  "start_url": "./",
+  "description": "古琴考级练习、题库、错题本与拍照识题",
+  "lang": "zh-CN",
+  "start_url": "./?v=5",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone","minimal-ui"],
   "orientation": "portrait-primary",
-  "background_color": "#f4eee3",
+  "background_color": "#f5f0e6",
   "theme_color": "#273b39",
   "icons": [
-    {"src":"./icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"}
+    {"src": "./icon-192.png?v=5", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "./icon-512.png?v=5", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
   ]
 }
