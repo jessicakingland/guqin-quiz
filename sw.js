@@ -1,5 +1,5 @@
-const CACHE="guqin-pwa-v9-0";
-const CORE=["/guqin-quiz/","/guqin-quiz/index.html?v=9","/guqin-quiz/styles.css?v=6","/guqin-quiz/app.js?v=6","/guqin-quiz/questions.js","/guqin-quiz/manifest.webmanifest?v=9","/guqin-quiz/apple-touch-icon-v9.png?v=9"];
+const CACHE="guqin-pwa-v10-0";
+const CORE=["/guqin-quiz/","/guqin-quiz/index.html?v=10","/guqin-quiz/styles.css?v=10","/guqin-quiz/app.js?v=10","/guqin-quiz/questions.js","/guqin-quiz/manifest.webmanifest?v=10","/guqin-quiz/apple-touch-icon-v10.png"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)));self.skipWaiting()});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
-self.addEventListener("fetch",e=>{const u=new URL(e.request.url);if(u.origin!==location.origin)return;e.respondWith(caches.match(e.request,{ignoreSearch:true}).then(hit=>hit||fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match('/guqin-quiz/index.html?v=9',{ignoreSearch:true}))))});
+self.addEventListener("fetch",e=>{const u=new URL(e.request.url);if(u.origin!==location.origin)return;e.respondWith(caches.match(e.request,{ignoreSearch:false}).then(hit=>hit||fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match("/guqin-quiz/index.html?v=10"))))});
