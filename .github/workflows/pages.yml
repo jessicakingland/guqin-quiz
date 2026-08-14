@@ -24,21 +24,76 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build question bank
+      - name: Recover and validate question bank
         shell: bash
         run: |
-          cat \
-            data/qdata-1.txt data/qdata-2.txt data/qdata-3.txt data/qdata-4.txt data/qdata-5.txt data/qdata-6.txt \
-            data/q7-1.txt data/q7-2.txt data/q7-3.txt \
-            data/q8-1.txt data/q8-2.txt data/q8-3.txt \
-            data/q9-1.txt data/q9-2.txt data/q9-3.txt \
-            | tr -cd 'A-Za-z0-9+/=' > /tmp/questions.b64
-          echo "Sanitized Base64 length: $(wc -c < /tmp/questions.b64)"
-          base64 -d /tmp/questions.b64 | gzip -dc > questions.js
+          python - <<'PY'
+          from pathlib import Path
+          import base64, gzip, zlib, string
+
+          order = [
+              'qdata-1','qdata-2','qdata-3','qdata-4','qdata-5','qdata-6',
+              'q7-1','q7-2','q7-3','q8-1','q8-2','q8-3','q9-1','q9-2','q9-3'
+          ]
+          allowed = set(string.ascii_letters + string.digits + '+/=')
+          parts = {}
+          for name in order:
+              raw = Path(f'data/{name}.txt').read_text(encoding='utf-8')
+              parts[name] = ''.join(ch for ch in raw if ch in allowed)
+              print(name, len(parts[name]))
+
+          # Two upload chunks contain one extra valid Base64 character each.
+          # Locate the first insertion by requiring the gzip stream to decode
+          # correctly up to the chunk immediately before q8-1.
+          bad1 = parts['qdata-2']
+          prefix_order = order[:9]
+          fixed1 = None
+          for i in range(len(bad1)):
+              candidate = bad1[:i] + bad1[i+1:]
+              seq = ''.join(candidate if n == 'qdata-2' else parts[n] for n in prefix_order)
+              if len(seq) % 4:
+                  continue
+              try:
+                  packed = base64.b64decode(seq, validate=True)
+                  d = zlib.decompressobj(16 + zlib.MAX_WBITS)
+                  out = d.decompress(packed)
+                  if out.startswith(b'window.QUESTION_BANK') and out.count(b'\"id\":\"') >= 100:
+                      fixed1 = candidate
+                      print('Recovered qdata-2 by removing character at index', i)
+                      break
+              except Exception:
+                  pass
+          if fixed1 is None:
+              raise SystemExit('Could not recover qdata-2')
+          parts['qdata-2'] = fixed1
+
+          # Locate the second insertion by requiring a complete valid gzip stream
+          # containing exactly 210 question records.
+          bad2 = parts['q8-1']
+          recovered = None
+          for i in range(len(bad2)):
+              candidate = bad2[:i] + bad2[i+1:]
+              seq = ''.join(candidate if n == 'q8-1' else parts[n] for n in order)
+              if len(seq) % 4:
+                  continue
+              try:
+                  packed = base64.b64decode(seq, validate=True)
+                  out = gzip.decompress(packed)
+                  if out.startswith(b'window.QUESTION_BANK') and out.count(b'\"id\":\"') == 210:
+                      recovered = out
+                      print('Recovered q8-1 by removing character at index', i)
+                      break
+              except Exception:
+                  pass
+          if recovered is None:
+              raise SystemExit('Could not recover q8-1')
+
+          Path('questions.js').write_bytes(recovered)
+          print('Recovered questions.js bytes:', len(recovered))
+          print('Question count:', recovered.count(b'\"id\":\"'))
+          PY
           node --check questions.js
-          COUNT=$(grep -o '"id":"' questions.js | wc -l | tr -d ' ')
-          echo "Question count: $COUNT"
-          test "$COUNT" = "210"
+          test "$(grep -o '"'"'"id"'"'":"'"'"' questions.js | wc -l | tr -d ' ')" = "210"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
