@@ -24,76 +24,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Recover and validate question bank
+      - name: Build and verify question bank
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import base64, gzip, zlib, string
-
-          order = [
-              'qdata-1','qdata-2','qdata-3','qdata-4','qdata-5','qdata-6',
-              'q7-1','q7-2','q7-3','q8-1','q8-2','q8-3','q9-1','q9-2','q9-3'
-          ]
-          allowed = set(string.ascii_letters + string.digits + '+/=')
-          parts = {}
-          for name in order:
-              raw = Path(f'data/{name}.txt').read_text(encoding='utf-8')
-              parts[name] = ''.join(ch for ch in raw if ch in allowed)
-              print(name, len(parts[name]))
-
-          # Two upload chunks contain one extra valid Base64 character each.
-          # Locate the first insertion by requiring the gzip stream to decode
-          # correctly up to the chunk immediately before q8-1.
-          bad1 = parts['qdata-2']
-          prefix_order = order[:9]
-          fixed1 = None
-          for i in range(len(bad1)):
-              candidate = bad1[:i] + bad1[i+1:]
-              seq = ''.join(candidate if n == 'qdata-2' else parts[n] for n in prefix_order)
-              if len(seq) % 4:
-                  continue
-              try:
-                  packed = base64.b64decode(seq, validate=True)
-                  d = zlib.decompressobj(16 + zlib.MAX_WBITS)
-                  out = d.decompress(packed)
-                  if out.startswith(b'window.QUESTION_BANK') and out.count(b'\"id\":\"') >= 100:
-                      fixed1 = candidate
-                      print('Recovered qdata-2 by removing character at index', i)
-                      break
-              except Exception:
-                  pass
-          if fixed1 is None:
-              raise SystemExit('Could not recover qdata-2')
-          parts['qdata-2'] = fixed1
-
-          # Locate the second insertion by requiring a complete valid gzip stream
-          # containing exactly 210 question records.
-          bad2 = parts['q8-1']
-          recovered = None
-          for i in range(len(bad2)):
-              candidate = bad2[:i] + bad2[i+1:]
-              seq = ''.join(candidate if n == 'q8-1' else parts[n] for n in order)
-              if len(seq) % 4:
-                  continue
-              try:
-                  packed = base64.b64decode(seq, validate=True)
-                  out = gzip.decompress(packed)
-                  if out.startswith(b'window.QUESTION_BANK') and out.count(b'\"id\":\"') == 210:
-                      recovered = out
-                      print('Recovered q8-1 by removing character at index', i)
-                      break
-              except Exception:
-                  pass
-          if recovered is None:
-              raise SystemExit('Could not recover q8-1')
-
-          Path('questions.js').write_bytes(recovered)
-          print('Recovered questions.js bytes:', len(recovered))
-          print('Question count:', recovered.count(b'\"id\":\"'))
-          PY
+          cat fresh/p01.txt fresh/p02.txt fresh/p03.txt fresh/p04.txt fresh/p05.txt fresh/p06.txt \
+              fresh/p07.txt fresh/p08.txt fresh/p09.txt fresh/p10.txt fresh/p11.txt fresh/p12.txt \
+              > /tmp/questions.b64
+          echo "Base64 bytes: $(wc -c < /tmp/questions.b64)"
+          test "$(wc -c < /tmp/questions.b64 | tr -d ' ')" = "71544"
+          echo "321968410f4bcbefd8b07ad0495862442c131611748d1673f23580186723c583  /tmp/questions.b64" | sha256sum -c -
+          base64 -d /tmp/questions.b64 | gzip -dc > questions.js
+          echo "83fba4b7ccdffac9ccb285c6d801aeaa9e4ebbc5b4cd2011898b6c6245bf67d5  questions.js" | sha256sum -c -
           node --check questions.js
-          test "$(grep -o '"'"'"id"'"'":"'"'"' questions.js | wc -l | tr -d ' ')" = "210"
+          COUNT=$(grep -o '"id":"' questions.js | wc -l | tr -d ' ')
+          echo "Question count: $COUNT"
+          test "$COUNT" = "210"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
