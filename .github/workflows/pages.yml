@@ -28,7 +28,8 @@ jobs:
         shell: bash
         run: |
           cat fresh/p01.txt fresh/p02.txt fresh/p03.txt fresh/p04.txt fresh/p05.txt fresh/p06.txt \
-              fresh/p07.txt fresh/p08.txt fresh/p09.txt fresh/p10.txt fresh/p11.txt fresh/p12.txt \
+              fresh/p07-1.txt fresh/p07-2.txt fresh/p07-3.txt fresh/p07-4.txt fresh/p07-5.txt fresh/p07-6.txt \
+              fresh/p08.txt fresh/p09.txt fresh/p10.txt fresh/p11.txt fresh/p12.txt \
               > /tmp/questions.b64
           echo "Base64 bytes: $(wc -c < /tmp/questions.b64)"
           test "$(wc -c < /tmp/questions.b64 | tr -d ' ')" = "71544"
