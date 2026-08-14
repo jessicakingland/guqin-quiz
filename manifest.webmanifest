@@ -3,7 +3,7 @@
   "short_name": "古琴题库",
   "description": "古琴考级练习、题库、错题本与拍照识题",
   "lang": "zh-CN",
-  "start_url": "/guqin-quiz/?v=8",
+  "start_url": "/guqin-quiz/?v=9",
   "scope": "/guqin-quiz/",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -11,8 +11,8 @@
   "theme_color": "#273b39",
   "icons": [
     {
-      "src": "/guqin-quiz/icon-192-v8.png?v=8",
-      "sizes": "192x192",
+      "src": "/guqin-quiz/apple-touch-icon-v9.png?v=9",
+      "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
     }
