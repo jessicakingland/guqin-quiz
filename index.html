@@ -18,7 +18,7 @@
 <body>
 <div class="app-shell">
   <header class="topbar"><div class="brand"><img class="brand-icon" src="./icon-192.png" alt="古琴题库"><div><h1>古琴考级题库</h1><p>练习 · 详细解析 · 错题 · 拍照识题</p></div></div></header>
-  <main id="view" class="content"></main>
+  <main id="view" class="content"><section class="hero"><span class="eyebrow">正在加载</span><h2>古琴考级题库</h2><p>正在读取题库数据，请稍候……</p></section></main>
 </div>
 <nav class="bottom-nav" aria-label="主导航">
   <button class="nav-btn active" data-view="home"><span>⌂</span><b>首页</b></button>
@@ -26,6 +26,7 @@
   <button class="nav-btn" data-view="ocr"><span>⌕</span><b>拍照识题</b></button>
 </nav>
 <div id="toast" class="toast"></div>
-<script src="./loader.js"></script>
+<script src="./questions.js"></script>
+<script src="./app.js"></script>
 </body>
 </html>
