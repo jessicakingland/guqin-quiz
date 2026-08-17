@@ -1,9 +1,9 @@
 {
   "name": "古琴考级题库",
-  "short_name": "古琴题库",
+  "short_name": "古琴考级题库",
   "description": "古琴考级练习、题库、错题本与拍照识题",
   "lang": "zh-CN",
-  "start_url": "/guqin-quiz/?v=26",
+  "start_url": "/guqin-quiz/",
   "scope": "/guqin-quiz/",
   "display": "standalone",
   "orientation": "portrait-primary",
