@@ -3,13 +3,13 @@
   "short_name": "古琴题库",
   "description": "古琴考级练习、题库、错题本与拍照识题",
   "lang": "zh-CN",
-  "start_url": "/guqin-quiz/?v=24",
+  "start_url": "/guqin-quiz/?v=25",
   "scope": "/guqin-quiz/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#f8f4eb",
   "theme_color": "#273b39",
   "icons": [
-    {"src":"/guqin-quiz/icon-v24.png?v=24","sizes":"192x192","type":"image/png","purpose":"any"}
+    {"src":"/guqin-quiz/icon-exact-v25.png?v=25","sizes":"128x128","type":"image/png","purpose":"any"}
   ]
 }
