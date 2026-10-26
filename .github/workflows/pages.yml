@@ -41,6 +41,13 @@ jobs:
           echo "Question count: $COUNT"
           test "$COUNT" = "210"
 
+      # Temporarily unpublish only the digital chain map. Remove this step to restore.
+      - name: Exclude paused digital chain map from publication
+        shell: bash
+        run: |
+          rm -rf -- kingland-digital-chain-map
+          test ! -e kingland-digital-chain-map
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
